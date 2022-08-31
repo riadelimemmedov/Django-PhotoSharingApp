@@ -44,11 +44,15 @@ INSTALLED_APPS = [
     'users',
     
     #thirdy party application
-    'taggit'
+    'taggit',
+    'crispy_forms'
 ]
 
 # Django taggit
 TAGGIT_CASE_INSENSITIVE = True
+
+#Indicates the frontend framework django crispy forms will use
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

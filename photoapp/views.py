@@ -20,8 +20,8 @@ class PhotoTagListView(PhotoListView):
     
     #find tags input url
     def get_tag(self):
-        print('slug value ', self.kwargs.get('slug'))
-        print('tag value ', self.kwargs.get('tag'))
+        print('slug value ', self.kwargs.get('slug'))#return none
+        print('tag value ', self.kwargs.get('tag'))#return tag value from url,we used value except than key
         print('Working get_tag method ', self.kwargs.get('tag'))
         return self.kwargs.get('tag')
 
@@ -38,7 +38,7 @@ class PhotoTagListView(PhotoListView):
         return context 
 
 #!PhotoDetailView
-class PhotoDetailView(DetailView):
+class PhotoDetailView(LoginRequiredMixin,DetailView):
     model = Photo
     template_name = 'photoapp/detail.html'
     context_object_name = 'photo'
@@ -48,7 +48,7 @@ class PhotoDetailView(DetailView):
         return get_object_or_404(Photo,slug=self.kwargs.get('slug'))
 
 #!PhotoCreateView
-class PhotoCreateView(LoginRequiredMixin,CreateView):
+class PhotoCreateView(CreateView):
     model = Photo
     fields = ['title','description','image','tags']
     template_name = 'photoapp/create.html'
@@ -56,7 +56,8 @@ class PhotoCreateView(LoginRequiredMixin,CreateView):
     
     def form_valid(self,form):
         form.instance.submitter = self.request.user
-        return super(PhotoCreateView,self).form_valid(form)
+        return super().form_valid(form)
+    
 
 #*UserIsSubmitter
 class UserIsSubmitter(UserPassesTestMixin):
@@ -73,14 +74,16 @@ class UserIsSubmitter(UserPassesTestMixin):
             raise PermissionDenied('Sorry you are not allowed here')
 
 #!PhotoUpdateView
-class  PhotoUpdateView(UserIsSubmitter,UpdateView):
+class PhotoUpdateView(UserIsSubmitter,UpdateView):
     model = Photo
     template_name = 'photoapp/update.html'
     fields = ['title','description','tags']
+    context_object_name = 'photo'
     success_url = reverse_lazy('photoapp:listphotos')
 
 #!PhotoDeleteView
-class PhotoDeleteView(UserIsSubmitter,UpdateView):
+class PhotoDeleteView(UserIsSubmitter,DeleteView):
     model = Photo
     template_name = 'photoapp/delete.html'
+    context_object_name = 'photo'
     success_url = reverse_lazy('photoapp:listphotos')

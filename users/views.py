@@ -12,6 +12,11 @@ class SignUpView(CreateView):
     template_name = 'users/signup.html'
     success_url = reverse_lazy('photoapp:listphotos')
     
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        for field in ['username', 'password1', 'password2']:
+            self.fields[field].help_text = None
+    
     def form_valid(self,form):
         # to_return = super().form_valid(form)
         

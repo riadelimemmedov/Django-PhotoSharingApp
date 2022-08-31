@@ -1,0 +1,10 @@
+{% extends "photoapp/list.html" %}
+
+{% block title %} Photo Tag List {% endblock title %}
+
+{% block content %}
+    <div class="alert alert-primary">
+        <h2 class="text-center">Photos with the tag {{tag}}</h2>
+    </div>
+    {{block.super}}
+{% endblock content %}
