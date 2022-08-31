@@ -1,0 +1,32 @@
+<!-- templates/navbar.html -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'photoapp:listphotos' %}">Photo App</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-row-reverse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav">
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item"><!-- !remember the row,after finish worked come back this row, for addding active class -->
+                        <a class="nav-link active" href="{% url 'photoapp:photocreate' %}">Add a photo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Hi {{user.username}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'users:logout' %}" class="btn btn-sm btn-danger">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'user:signin' %}" class="btn btn-sm btn-warning">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'users:signup' %}" class="btn btn-sm btn-warning">Sign Up</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

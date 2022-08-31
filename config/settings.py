@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     
     #my application
     'photoapp',
+    'users',
     
     #thirdy party application
     'taggit'
@@ -64,7 +65,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,6 +122,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+#Django Authentication Configuration
+LOGIN_URL  = 'users:signin'
+LOGIN_REDIRECT_URL  = 'photoapp:listphotos'#after login redirect this url view
+
+LOGOUT_REDIRECT_URL = 'photoapp:listphotos'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
