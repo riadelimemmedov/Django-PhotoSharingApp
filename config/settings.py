@@ -145,3 +145,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+#If remove file at git repositories and filesystem
+#?for example => git rm file.txt 
+
+#If remove file only git repositories
+#?for example => git rm --cached  file.txt
